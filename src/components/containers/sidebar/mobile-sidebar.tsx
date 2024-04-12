@@ -4,6 +4,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 import { Button } from '@/components/ui/button'
 import { Sidebar } from './sidebar'
+import { DashboardIcon } from '@radix-ui/react-icons'
 
 interface SidebarMobileProps {
   children: React.ReactNode
@@ -14,7 +15,7 @@ export function SidebarMobile({ children }: SidebarMobileProps) {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant='ghost' className='-ml-2 flex size-9 p-0 lg:hidden'>
-          <div className='size-6 bg-green-100' />
+          <DashboardIcon width={24} height={24} />
           <span className='sr-only'>Toggle Sidebar</span>
         </Button>
       </SheetTrigger>
