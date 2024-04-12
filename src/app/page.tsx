@@ -1,4 +1,5 @@
 'use client'
+import Search from '@/components/containers/search/searchbar'
 import { Sidebar } from '@/components/containers/sidebar/sidebar'
 import SidebarDesktop from '@/components/containers/sidebar/sidebar-desktop'
 import SidebarItem from '@/components/containers/sidebar/sidebar-item'
@@ -16,14 +17,7 @@ export default function Home() {
           <h1 className='text-bold text-gray-500'>15 TOTAL APPLICATIONS</h1>
           <div className='bg-gray-300 h-[1px] lg:mt-2'></div>
         </div>
-        <div className='relative  focus-within:z-10 mt-4'>
-          <input
-            className='block h-11 w-full rounded-md bg-gray-100 border-gray-500 pl-10 text-base leading-5 transition focus:border-sky-300 focus:outline-none focus:ring-4 focus:ring-sky-300'
-            data-testid='custom-search'
-            placeholder='Search for roles or companies'
-            type='search'
-          ></input>
-        </div>
+        <Search />
         <div className='flex-1 mt-4 lg:max-h-screen scrollbar-none pb-48 lg:overflow-y-scroll'>
           <Card />
           <Card />
