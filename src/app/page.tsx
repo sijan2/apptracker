@@ -1,17 +1,15 @@
 'use client'
 import { Sidebar } from '@/components/containers/sidebar/sidebar'
+import SidebarDesktop from '@/components/containers/sidebar/sidebar-desktop'
 import SidebarItem from '@/components/containers/sidebar/sidebar-item'
 import Toggle from '@/components/containers/sidebar/sidebar-toggle'
 import Card from '@/components/ui/card'
 
 export default function Home() {
   return (
-    <div className='flex relative min-h-full w-full z-0 '>
-      <Sidebar className='min-h-screen z-30 hidden  border-r bg-muted duration-300 ease-in-out data-[state=closed]:w-0 data-[state=closed]:hidden lg:flex w-[300px] bg-gray-50'>
-        {/* @ts-ignore */}
-        <SidebarItem />
-      </Sidebar>
-      <main className='relative min-h-screen w-full flex flex-col flex-1 transition-width pb-4 px-4 lg:px-16 '>
+    <div className='flex relative min-h-full w-full z-0'>
+      <SidebarDesktop />
+      <main className='relative min-h-screen w-full flex flex-col flex-1 transition-width pb-4 px-4 lg:px-16'>
         <Toggle />
         <div className='flex-col lg:pt-4'>
           <h1 className='font-bold text-2xl'>Your Submitted Applications</h1>
@@ -26,7 +24,7 @@ export default function Home() {
             type='search'
           ></input>
         </div>
-        <div className='flex-1 mt-4 overflow-y-scroll'>
+        <div className='flex-1 mt-4 lg:max-h-screen scrollbar-none pb-48 lg:overflow-y-scroll'>
           <Card />
           <Card />
           <Card />
