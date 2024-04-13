@@ -1,8 +1,6 @@
 'use client'
 import Search from '@/components/containers/search/searchbar'
-import { Sidebar } from '@/components/containers/sidebar/sidebar'
 import SidebarDesktop from '@/components/containers/sidebar/sidebar-desktop'
-import SidebarItem from '@/components/containers/sidebar/sidebar-item'
 import Toggle from '@/components/containers/sidebar/sidebar-toggle'
 import Card from '@/components/ui/card'
 
@@ -18,7 +16,7 @@ export default function Home() {
           <div className='bg-gray-300 h-[1px] lg:mt-2'></div>
         </div>
         <Search />
-        <div className='flex-1 mt-4 lg:max-h-screen scrollbar-none pb-48 lg:overflow-y-scroll'>
+        <div className='flex-1 mt-4 lg:max-h-screen scrollbar-none lg:pb-48 lg:overflow-y-scroll'>
           <Card />
           <Card />
           <Card />
