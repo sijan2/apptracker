@@ -1,5 +1,4 @@
 import axios from "axios";
-import renderAlert from "./renderAlert";
 import getHeaders from "./getHeaders";
 
 export default async function deleteMessages(
@@ -10,7 +9,7 @@ export default async function deleteMessages(
   const headers = getHeaders(token);
 
   if (messageIdArray.length === 0) {
-    renderAlert("error", "No messages to delete");
+    console.log("error", "No messages to delete");
     return;
   }
 
@@ -25,6 +24,6 @@ export default async function deleteMessages(
 
     return response.data;
   } catch (error) {
-    renderAlert("error", `Error deleting messages: ${error}`);
+    console.log("error", `Error deleting messages: ${error}`);
   }
 }
