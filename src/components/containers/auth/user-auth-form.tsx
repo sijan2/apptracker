@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
-
 import { cn } from '@/lib/utils'
 import { userAuthSchema } from '@/lib/validations/auth'
 import { buttonVariants } from '@/components/ui/button'
@@ -14,6 +13,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from '@/components/ui/use-toast'
 import { Icons } from '@/components/icons'
+import { handleLogin } from '@/supabase/supabase'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -103,7 +103,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         className={cn(buttonVariants({ variant: 'outline' }))}
         onClick={() => {
           setIsGitHubLoading(true)
-          signIn('github')
+          handleLogin()
         }}
         disabled={isLoading || isGitHubLoading}
       >
