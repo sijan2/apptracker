@@ -23,4 +23,46 @@ async function handleLogout() {
   supabase.auth.signOut({ scope: 'global' })
 }
 
-export { supabase, handleLogin, handleLogout }
+async function getSubscriptions() {
+  const { data: subscriptions } = await supabase
+    .from('profiles')
+    .select('unsubscribed')
+
+  if (subscriptions) {
+    return subscriptions[0].unsubscribed
+  } else return []
+}
+
+async function addSubscriptions(user: any, emailsArray: string[]) {
+  if (emailsArray.length > 0) {
+    const pathParams = {
+      id: user.id,
+      name: user.user_metadata.name,
+      email: user.email,
+    }
+
+    const { data } = await supabase.from('profiles').select('unsubscribed')
+
+    if (data) {
+      const { unsubscribed } = data[0]
+
+      await supabase.from('profiles').upsert([
+        {
+          ...pathParams,
+          unsubscribed:
+            unsubscribed !== null
+              ? [...unsubscribed, ...emailsArray]
+              : [...emailsArray],
+        },
+      ])
+    }
+  }
+}
+
+export {
+  supabase,
+  handleLogin,
+  handleLogout,
+  getSubscriptions,
+  addSubscriptions,
+}

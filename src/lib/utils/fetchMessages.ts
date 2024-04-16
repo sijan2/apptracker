@@ -13,8 +13,31 @@ type MessageObject = {
 
 async function fetchMessageIDs(token: string, userId: string) {
   const MAX_RESULTS = 400
-  const QUERY_STRING = 'Unsubscribe'
 
+  const phrases = [
+    'Thank you for applying to',
+    'Thank you for your interest',
+    'We have received your application',
+    'Our recruiting team will contact you',
+    'progressed to the next stage',
+    'like to invite you for an interview',
+    'caught our attention',
+    'excited to move forward',
+    'like to invite you to participate',
+    'have been shortlisted',
+    'schedule a time for you to meet',
+    'impressed by your experience',
+    'decided to move forward with other candidates',
+    'will not be progressing your application',
+    'chosen not to proceed with your application',
+    'your application has not been successful',
+    'selected a candidate whose qualifications',
+    'decided not to advance your application',
+    'decided to proceed with another candidate',
+    'not be offering you a position',
+    'concluded to pursue other candidates',
+  ]
+  const QUERY_STRING = ` ${phrases.join(' OR ')}`
   const headers = getHeaders(token)
 
   const params = {

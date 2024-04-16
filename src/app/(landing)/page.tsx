@@ -1,6 +1,6 @@
 'use client'
 import fetchMessages from '@/lib/utils/fetchMessages'
-import { supabase } from '@/supabase/supabase'
+import { handleLogout, supabase } from '@/supabase/supabase'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
@@ -38,8 +38,11 @@ export default function Landing() {
         router.push('/login')
       }
     })
-  })
+  }, [])
 
+  console.log(user)
+
+  const name = user?.user_metadata.name
   return (
     <div className='min-h-screen flex items-center justify-center space-x-2'>
       <Link
@@ -54,6 +57,12 @@ export default function Landing() {
       >
         Login
       </Link>
+      <button
+        onClick={handleLogout}
+        className='flex rounded-lg bg-black text-white font-semibold h-12 w-44 items-center justify-center'
+      >
+        Sign Out {name}
+      </button>
     </div>
   )
 }
