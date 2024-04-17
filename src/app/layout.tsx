@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import '@/styles/globals.css'
 import { Providers } from '@/components/providers/providers'
 import { cn } from '@/lib/utils'
+import { EmailProvider } from '@/lib/hooks/use-email'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,7 +28,9 @@ export default function RootLayout({
           GeistMono.variable
         )}
       >
-        <Providers>{children}</Providers>
+        <EmailProvider>
+          <Providers>{children}</Providers>
+        </EmailProvider>
       </body>
     </html>
   )

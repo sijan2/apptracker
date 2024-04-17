@@ -29,7 +29,7 @@ export default function Landing() {
           sessionStorage.setItem('token', session?.provider_token as string)
           sessionStorage.setItem('user', JSON.stringify(session?.user))
 
-          router.push('/dashboard')
+          router.push('/dashboard', { scroll: false })
         } else {
           console.log('error', 'Error logging in')
         }
@@ -38,7 +38,7 @@ export default function Landing() {
         router.push('/login')
       }
     })
-  }, [])
+  }, [router])
 
   console.log(user)
 

@@ -4,8 +4,20 @@ import Search from '@/components/containers/search/searchbar'
 import SidebarDesktop from '@/components/containers/sidebar/sidebar-desktop'
 import Toggle from '@/components/containers/sidebar/sidebar-toggle'
 import Card from '@/components/ui/card'
+import { supabase } from '@/supabase/supabase'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function Dashboard() {
+  const router = useRouter()
+  useEffect(() => {
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_OUT') {
+        sessionStorage.clear()
+        router.push('/login')
+      }
+    })
+  }, [router])
   return (
     <>
       <Header />

@@ -17,7 +17,7 @@ function Card() {
               />
             </div>
             <div className='text-gray-600 flex flex-col justify-start items-start'>
-              <h1 className='font-semibold'>Software Engineer</h1>
+              <h1 className='font-semibold text-gray-700'>Software Engineer</h1>
               <span>Spotify</span>
               <span>New York</span>
             </div>
@@ -26,7 +26,10 @@ function Card() {
             <div className=''>
               <div className='flex grow'>
                 <div className='z-10 flex shrink-0 flex-col items-center'>
-                  <div className='mb-2 text-xs' data-testid='applied'>
+                  <div
+                    className='mb-2 text-gray-700 text-xs'
+                    data-testid='applied'
+                  >
                     Applied
                   </div>
                   <div
@@ -52,7 +55,7 @@ function Card() {
                       </svg>
                     </span>
                   </div>
-                  <div className='mt-2 h-4 text-xs'>4/12/24</div>
+                  <div className='mt-2 h-4 text-xs text-gray-700'>4/12/24</div>
                 </div>
                 <div className='flex grow content-center items-center align-middle'>
                   <div className='-mx-4 w-full flex-1 items-center rounded bg-primary-base align-middle'>
@@ -63,7 +66,10 @@ function Card() {
                   </div>
                 </div>
                 <div className='z-10 flex shrink-0 flex-col items-center'>
-                  <div className='mb-2 text-xs' data-testid='screen'>
+                  <div
+                    className='mb-2 text-gray-700 text-xs'
+                    data-testid='screen'
+                  >
                     Screen
                   </div>
                   <div
@@ -91,7 +97,10 @@ function Card() {
                   </div>
                 </div>
                 <div className='z-10 flex shrink-0 flex-col items-center'>
-                  <div className='mb-2 text-xs' data-testid='interview'>
+                  <div
+                    className='mb-2 text-gray-700 text-xs'
+                    data-testid='interview'
+                  >
                     Interview
                   </div>
                   <div
@@ -119,7 +128,10 @@ function Card() {
                   </div>
                 </div>
                 <div className='z-10 flex shrink-0 flex-col items-center'>
-                  <div className='mb-2 text-xs' data-testid='offer'>
+                  <div
+                    className='mb-2 text-gray-700 text-xs'
+                    data-testid='offer'
+                  >
                     Offer
                   </div>
                   <div

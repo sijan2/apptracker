@@ -13,13 +13,32 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { toast } from '@/components/ui/use-toast'
 import { Icons } from '@/components/icons'
-import { handleLogin } from '@/supabase/supabase'
+import { handleLogin, supabase } from '@/supabase/supabase'
+import { useRouter } from 'next/navigation'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 type FormData = z.infer<typeof userAuthSchema>
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const router = useRouter()
+  React.useEffect(() => {
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN') {
+        if (session) {
+          sessionStorage.setItem('token', session?.provider_token as string)
+          sessionStorage.setItem('user', JSON.stringify(session?.user))
+
+          router.push('/dashboard')
+        } else {
+          console.log('error', 'Error logging in')
+        }
+      } else if (event === 'SIGNED_OUT') {
+        sessionStorage.clear()
+        router.push('/login')
+      }
+    })
+  }, [router])
   const {
     register,
     handleSubmit,

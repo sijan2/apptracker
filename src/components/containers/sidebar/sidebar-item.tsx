@@ -1,5 +1,6 @@
 import { Icons } from '@/components/icons'
-import { ChevronUpIcon, ModulzLogoIcon, SunIcon } from '@radix-ui/react-icons'
+import { handleLogout } from '@/supabase/supabase'
+import { ChevronUpIcon, SunIcon } from '@radix-ui/react-icons'
 import React from 'react'
 
 function SidebarItem() {
@@ -17,7 +18,7 @@ function SidebarItem() {
         <div className='bg-gray-300 h-[1px]'></div>
       </div>
       <nav className='flex-1'></nav>
-      <div className='h-20 cursor-pointer '>
+      <div onClick={handleLogout} className='h-20 cursor-pointer '>
         <div className='bg-gray-300 h-[1px]'></div>
         <div className='flex items-center justify-between p-2'>
           <div className='flex items-center justify-between space-x-2'>

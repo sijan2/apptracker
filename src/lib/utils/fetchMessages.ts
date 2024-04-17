@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { toast } from '@/components/ui/use-toast'
 import getHeaders from './getHeaders'
+import { useEmailData } from '../hooks/use-email'
+import { useEffect } from 'react'
 
 async function fetchMessageIDs(token: string, userId: string) {
   const MAX_RESULTS = 400
@@ -66,81 +68,4 @@ async function fetchMessageIDs(token: string, userId: string) {
   }
 }
 
-async function fetchMessages(token: string, userId: string) {
-  const messageIdArray = await fetchMessageIDs(token, userId)
-
-  const headers = getHeaders(token)
-
-  if (Array.isArray(messageIdArray) && messageIdArray.length === 0) {
-    toast({
-      title: 'Something went wrong.',
-      description: 'Your request failed. Please try again.',
-      variant: 'destructive',
-    })
-    return []
-  }
-
-  const messagePromises = messageIdArray?.map(async (messageId: string) => {
-    try {
-      const response = await axios.get<GmailMessage>(
-        `https://gmail.googleapis.com/gmail/v1/users/${userId}/messages/${messageId}`,
-        {
-          headers,
-        }
-      )
-      if (response.status === 200 && response.data) {
-        const res = response.data.payload
-
-        const header = res.headers
-        const parts = res.parts
-
-        // Extracting necessary information
-        const extracted_payload = {
-          to: header.find((header) => header.name === 'To')?.value,
-          from: header.find((header) => header.name === 'From')?.value,
-          subject: header.find((header) => header.name === 'Subject')?.value,
-          content: parts?.[0]?.body?.data ?? '',
-        }
-
-        const json_payload = JSON.stringify(extracted_payload)
-
-        const url = 'http://localhost:5000/process-email'
-        axios
-          .post(url, json_payload, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-          .then((response) => {
-            console.log(response.data)
-          })
-          .catch((error) => {
-            console.error('Error:', error)
-          })
-      }
-    } catch (error) {
-      toast({
-        title: 'Something went wrong.',
-        description: 'Your sign in request failed. Please try again.',
-        variant: 'destructive',
-      })
-    }
-  })
-
-  // const exists: Set<string> = new Set()
-
-  // const [messageArray] = await Promise.all([
-  //   Promise.all(messagePromises ?? []).then((items) =>
-  //     items.filter((item) => {
-  //       const email = item?.email
-  //       if (email !== undefined && !exists.has(email) && item.webUrl) {
-  //         exists.add(email)
-  //         return item
-  //       }
-  //     })
-  //   ),
-  // ])
-  // return messageArray
-}
-
-export default fetchMessages
+export default fetchMessageIDs
