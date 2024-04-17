@@ -2,12 +2,17 @@ import Image from 'next/image'
 import React from 'react'
 import { Icons } from '../icons'
 
-function Card() {
+interface CardProps {
+  company: string
+  status: string
+}
+
+function Card({ company = 'Spotify', status = 'Applied' }: CardProps) {
   return (
     <div className='rounded-md  m-1 mb-6  shadow h-[200px] lg:h-[120px] '>
       <button className=' h-full w-full rounded-md hover:bg-sky-50'>
         <div className='p-4 flex flex-col space-y-4 lg:space-y-0 lg:flex-row justify-start '>
-          <div className='flex space-x-4'>
+          <div className='flex space-x-4 lg:w-1/4'>
             <div className='size-20 bg-red-50 rounded-lg text-xl flex font-bold items-center justify-center'>
               <Image
                 width={52}
@@ -18,7 +23,7 @@ function Card() {
             </div>
             <div className='text-gray-600 flex flex-col justify-start items-start'>
               <h1 className='font-semibold text-gray-700'>Software Engineer</h1>
-              <span>Spotify</span>
+              <div>{company}</div>
               <span>New York</span>
             </div>
           </div>
@@ -30,7 +35,7 @@ function Card() {
                     className='mb-2 text-gray-700 text-xs'
                     data-testid='applied'
                   >
-                    Applied
+                    {status}
                   </div>
                   <div
                     className='bg-green-200 mx-auto flex h-6 w-6 items-center rounded-full text-lg text-white'

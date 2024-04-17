@@ -29,7 +29,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           sessionStorage.setItem('token', session?.provider_token as string)
           sessionStorage.setItem('user', JSON.stringify(session?.user))
 
-          router.push('/dashboard')
+          router.push('/dashboard', { scroll: false })
         } else {
           console.log('error', 'Error logging in')
         }
