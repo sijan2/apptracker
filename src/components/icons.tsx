@@ -70,6 +70,20 @@ export const Icons = {
       <path d='M1 1h22v22H1z' fill='none' />
     </svg>
   ),
+  applied: ({ ...props }: LucideProps) => (
+    <svg
+      stroke='currentColor'
+      strokeWidth='0'
+      viewBox='0 0 16 16'
+      data-testid='circle-applied'
+      height='1em'
+      width='1em'
+      xmlns='http://www.w3.org/2000/svg'
+      {...props}
+    >
+      <circle cx='8' cy='8' r='8'></circle>
+    </svg>
+  ),
   twitter: X,
   check: Check,
 }

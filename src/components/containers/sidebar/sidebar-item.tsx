@@ -1,3 +1,4 @@
+import { Icons } from '@/components/icons'
 import { ChevronUpIcon, ModulzLogoIcon, SunIcon } from '@radix-ui/react-icons'
 import React from 'react'
 
@@ -7,7 +8,7 @@ function SidebarItem() {
       <div className='h-20 flex flex-col justify-between'>
         <div className='flex flex-1 p-4 items-center justify-between'>
           <button>
-            <ModulzLogoIcon width={24} height={24} />
+            <Icons.google width={24} height={24} />
           </button>
           <button className='mr-10 lg:mr-0'>
             <SunIcon width={24} height={24} />
