@@ -35,12 +35,10 @@ function Email() {
   const hasFetchedData = localStorage.getItem('hasFetchedData')
 
   return (
-    <div className='flex min-h-screen items-center justify-center'>
+    <div className="flex min-h-screen items-center justify-center">
       <button
         onClick={() => {
-          if (!hasFetchedData) {
-            handleScanEmail()
-          }
+          handleScanEmail()
         }}
       >
         Scan Email

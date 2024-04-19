@@ -30,7 +30,7 @@ export async function fetchMessageIDs(token: string, userId: string) {
     '"decided not to advance your application"',
     '"decided to proceed with another candidate"',
     '"not be offering you a position"',
-    '"concluded to pursue other candidates"',
+    '"concluded to pursue other candidates"'
   ]
 
   const QUERY_STRING = phrases.join(' OR ')
@@ -40,7 +40,7 @@ export async function fetchMessageIDs(token: string, userId: string) {
   const params = {
     maxResults: MAX_RESULTS,
     q: QUERY_STRING,
-    includeSpamTrash: false,
+    includeSpamTrash: false
   }
 
   try {
@@ -59,13 +59,13 @@ export async function fetchMessageIDs(token: string, userId: string) {
       toast({
         title: 'Something went wrong.',
         description: 'Your request failed. Please try again.',
-        variant: 'destructive',
+        variant: 'destructive'
       })
     } else
       toast({
         title: 'Something went wrong.',
         description: `${error}`,
-        variant: 'destructive',
+        variant: 'destructive'
       })
   }
 }
@@ -82,7 +82,7 @@ async function scanEmail(
     toast({
       title: 'Something went wrong.',
       description: 'Your request failed. Please try again.',
-      variant: 'destructive',
+      variant: 'destructive'
     })
     return []
   }
@@ -100,19 +100,20 @@ async function scanEmail(
 
         // Extracting necessary information
         const extracted_payload = {
-          to: header.find((h) => h.name === 'To')?.value ?? '',
-          from: header.find((h) => h.name === 'From')?.value ?? '',
-          subject: header.find((h) => h.name === 'Subject')?.value ?? '',
-          content: parts?.[0]?.body?.data ?? '',
+          to: header.find(h => h.name === 'To')?.value ?? '',
+          from: header.find(h => h.name === 'From')?.value ?? '',
+          subject: header.find(h => h.name === 'Subject')?.value ?? '',
+          content: parts?.[0]?.body?.data ?? ''
         }
+        console.log(extracted_payload)
 
         const json_payload = JSON.stringify(extracted_payload)
-        const url = 'http://localhost:5000/process-email'
+        const url = 'http://127.0.0.1:5000/process-email'
 
         const postResponse = await axios.post(url, json_payload, {
           headers: {
-            'Content-Type': 'application/json',
-          },
+            'Content-Type': 'application/json'
+          }
         })
         if (postResponse.status === 204) {
           return undefined
@@ -133,7 +134,7 @@ async function scanEmail(
     toast({
       title: 'Network error',
       description: 'There was a problem fetching your emails.',
-      variant: 'destructive',
+      variant: 'destructive'
     })
     console.error('Error:', error)
     return undefined
