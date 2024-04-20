@@ -17,30 +17,30 @@ export default function Dashboard() {
   const user = JSON.parse(sessionStorage.getItem('user') as string)
   const { emailData, setEmailData } = useEmailData()
 
+  useEffect(() => {
+    const firstTimeUser = localStorage.getItem('firstTimeUser')
+    if (!firstTimeUser) {
+      handleScanEmail()
+      localStorage.setItem('firstTimeUser', 'true')
+    }
+  }, [])
   async function handleScanEmail() {
     const fetchedMessages = await scanEmail(
       token,
       user.user_metadata.provider_id
     )
+    console.log(fetchedMessages)
     setEmailData(fetchedMessages)
     localStorage.setItem('emailData', JSON.stringify(fetchedMessages))
-    localStorage.setItem('hasFetchedData', 'true')
   }
 
   useEffect(() => {
-    // Attempt to load data from local storage
+    const firstTimeUser = localStorage.getItem('firstTimeUser')
     const storedData = localStorage.getItem('emailData')
-    const hasFetchedData = localStorage.getItem('hasFetchedData')
-
-    if (storedData && hasFetchedData) {
-      // If data is already fetched, use it from local storage
+    if (storedData && firstTimeUser === 'true') {
       setEmailData(JSON.parse(storedData))
-    } else if (user.user_metadata.provider_id && token) {
-      //  user is logging in for the first time
-      handleScanEmail()
     }
   }, [])
-
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_OUT') {
@@ -53,21 +53,21 @@ export default function Dashboard() {
   return (
     <>
       <Header />
-      <div className='flex relative min-h-full w-full z-0'>
+      <div className="flex relative min-h-full w-full z-0">
         <SidebarDesktop />
-        <main className='relative min-h-screen w-full flex flex-col flex-1 transition-width pb-4 px-4 lg:px-16'>
+        <main className="relative min-h-screen w-full flex flex-col flex-1 transition-width pb-4 px-4 lg:px-16">
           <Toggle />
-          <div className='flex-col lg:pt-4'>
-            <h1 className='font-semibold text-gray-800 text-2xl'>
+          <div className="flex-col lg:pt-4">
+            <h1 className="font-semibold text-gray-800 text-2xl">
               Your Submitted Applications
             </h1>
-            <h1 className='text-bold text-gray-500'>
+            <h1 className="text-bold text-gray-500">
               {emailData?.length} TOTAL APPLICATIONS
             </h1>
-            <div className='bg-gray-300 h-[1px] lg:mt-2'></div>
+            <div className="bg-gray-300 h-[1px] lg:mt-2"></div>
           </div>
           <Search />
-          <div className='flex-1 mt-4 lg:max-h-screen scrollbar-none lg:pb-48 lg:overflow-y-scroll'>
+          <div className="flex-1 mt-4 lg:max-h-screen scrollbar-none lg:pb-48 lg:overflow-y-scroll">
             {emailData?.map((e, index) => (
               <Card key={index} company={e.company} status={e.status} />
             ))}

@@ -93,6 +93,7 @@ async function scanEmail(
         `https://gmail.googleapis.com/gmail/v1/users/${userId}/messages/${messageId}`,
         { headers }
       )
+
       if (response.status === 200 && response.data) {
         const res = response.data.payload
         const header = res.headers
@@ -105,16 +106,17 @@ async function scanEmail(
           subject: header.find(h => h.name === 'Subject')?.value ?? '',
           content: parts?.[0]?.body?.data ?? ''
         }
-        console.log(extracted_payload)
 
         const json_payload = JSON.stringify(extracted_payload)
-        const url = 'http://127.0.0.1:5000/process-email'
+
+        const url = 'http://127.0.0.1:8000/process-email'
 
         const postResponse = await axios.post(url, json_payload, {
           headers: {
             'Content-Type': 'application/json'
           }
         })
+
         if (postResponse.status === 204) {
           return undefined
         }

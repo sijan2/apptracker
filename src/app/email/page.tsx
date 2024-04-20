@@ -8,31 +8,41 @@ function Email() {
   const user = JSON.parse(sessionStorage.getItem('user') as string)
   const { emailData, setEmailData } = useEmailData()
 
+  // useEffect(() => {
+  //   const firstTimeUser = localStorage.getItem('firstTimeUser')
+  //   const storedData = localStorage.getItem('emailData')
+  //   if (storedData && firstTimeUser === 'true') {
+  //     setEmailData(JSON.parse(storedData))
+  //   } else if (firstTimeUser) {
+  //     handleScanEmail()
+  //     localStorage.setItem('firstTimeUser', 'true')
+  //   }
+  // }, [])
+
+  useEffect(() => {
+    const firstTimeUser = localStorage.getItem('firstTimeUser')
+    if (!firstTimeUser) {
+      handleScanEmail()
+      localStorage.setItem('firstTimeUser', 'true')
+    }
+  }, [])
   async function handleScanEmail() {
     const fetchedMessages = await scanEmail(
       token,
       user.user_metadata.provider_id
     )
+    console.log(fetchedMessages)
     setEmailData(fetchedMessages)
     localStorage.setItem('emailData', JSON.stringify(fetchedMessages))
-    localStorage.setItem('hasFetchedData', 'true')
   }
 
   useEffect(() => {
-    // Attempt to load data from local storage
+    const firstTimeUser = localStorage.getItem('firstTimeUser')
     const storedData = localStorage.getItem('emailData')
-    const hasFetchedData = localStorage.getItem('hasFetchedData')
-
-    if (storedData && hasFetchedData) {
-      // If data is already fetched, use it from local storage
+    if (storedData && firstTimeUser === 'true') {
       setEmailData(JSON.parse(storedData))
-    } else if (user.user_metadata.provider_id && token) {
-      //  user is logging in for the first time
-      handleScanEmail()
     }
   }, [])
-
-  const hasFetchedData = localStorage.getItem('hasFetchedData')
 
   return (
     <div className="flex min-h-screen items-center justify-center">
