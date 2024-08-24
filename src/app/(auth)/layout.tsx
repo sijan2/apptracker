@@ -13,7 +13,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         <div className='flex flex-row items-center -translate-x-6 space-x-2 justify-center text-black'>
           <Icons.logo className='my-6 size-12' />
           <h1 className='text-xl font-mono font-semibold'>
-            Application Tracker
+            Career Lens
           </h1>
         </div>
         <div className='w-[1px] bg-gray-400 h-1/2' />
